@@ -1,0 +1,4 @@
+Results for grid searches on all selected models 
+Best set of parameters for KNN model : {'n_neighbors': 1, 'p': 3, 'weights': 'uniform'} gave score 0.62001332001332
+Best set of parameters for XGB model : {'max_depth': 16, 'min_child_weight': 0, 'n_estimators': 1500} gave score 0.62004662004662
+
