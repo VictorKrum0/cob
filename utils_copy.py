@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 "For confusion matrix plot"
-from seaborn import heatmap
 from sklearn.metrics import confusion_matrix
 
 # ----------------------------------------------------------------------------------
