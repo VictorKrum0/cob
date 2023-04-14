@@ -24,7 +24,7 @@ dataset_name = 'PandasDataframes/Recorded_Melspecs_16.csv'
 
 data = pd.read_csv(dataset_name).drop(['Unnamed: 0'], axis='columns').drop(index=779)
 
-X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='LABEL')**(1/2), data.LABEL, test_size=0.01)
+X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='LABEL')**(1/2), data.LABEL, test_size=0.1)
 
 
 n_neighbors = 3
@@ -59,23 +59,27 @@ def my_kfold(X, y, model='xgb', display=False, n_splits=5) :
 #TRAINING A KNN CLASSIFIER
 #-----------------------------------------------------------------------------------------------------------
 
-my_KNN = KNeighborsClassifier(n_neighbors=n_neighbors)
+my_KNN = KNeighborsClassifier(n_neighbors=n_neighbors,weights='distance',p=3)
 
 #TRAINING A XGB CLASSIFIER
 #-----------------------------------------------------------------------------------------------------------
 
-my_XGB = xgb.sklearn.XGBClassifier()
+my_XGB = xgb.sklearn.XGBClassifier(max_depth=16, n_estimators=1600, min_child_weight=0)
 #XGB_model.fit(X_train, y_train, **{'XGBClassifier__sample_weight': weights_list})
 
 #TRAINING A MLP CLASSIFIER
 #-----------------------------------------------------------------------------------------------------------
 
-my_MLP = neural_network.MLPClassifier(max_iter=200, hidden_layer_sizes=(500,500))
+my_MLP = neural_network.MLPClassifier(max_iter=500, 
+                                      hidden_layer_sizes=(640,1280,640),
+                                      learning_rate='adaptive',
+                                      nesterovs_momentum=False,
+                                      alpha=0.015)
 
 #PART 1 : PCA DIMENSION OPTIMIZATION
 #---------------------------------------------------------------------------------------------------------------------
 
-all_n_pca = [8,16,24,32,40,48,56,64,128]
+all_n_pca = range(12,24)
 
 knn_scores = []
 xgb_scores = []
@@ -87,15 +91,15 @@ with open('PCALog.txt', 'w') as file :
         file.write(f'\n Scores for PCA size {n_pca} :\n\r')
         my_pca = PCA(n_components=n_pca)
         knn_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('KNNClassifier', my_KNN)])
-        knn_score = my_kfold(X_train, y_train, model='knn', n_splits=50)
+        knn_score = my_kfold(X_train, y_train, model='knn', n_splits=30)
         knn_scores.append(knn_score)
         file.write(f'Score for KNN : {knn_score} \n\r')
         XGB_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('XGBClassifier', my_XGB)])
-        xgb_score = my_kfold(X_train, y_train, model='xgb', n_splits=50)
+        xgb_score = my_kfold(X_train, y_train, model='xgb', n_splits=30)
         xgb_scores.append(xgb_score)
         file.write(f'Score for XGB : {xgb_score} \n\r')
         MLP_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('MLPClassifier', my_MLP)])
-        mlp_score = my_kfold(X_train, y_train, model='mlp', n_splits=50)
+        mlp_score = my_kfold(X_train, y_train, model='mlp', n_splits=30)
         mlp_scores.append(mlp_score)
         file.write(f'Score for MLP : {mlp_score} \n\r')
     best_knn_pca = all_n_pca[np.argmax(np.array(knn_scores))]
@@ -132,7 +136,7 @@ XGB_params = {
 XGB_GS = GridSearchCV(xgb.XGBClassifier(),
                       XGB_params, n_jobs=-1, cv=10, scoring='accuracy')
 XGB_GS.fit(xgb_X_train, y_train)
-'''
+
 #PART 2.3 : MLP
 
 MLP_params = {
@@ -154,3 +158,4 @@ with open('GridSearchLog.txt', 'w') as file :
     #file.write(f'Best set of parameters for KNN model : {KNN_GS.best_params_} gave score {KNN_GS.best_score_}\n\r')
     #file.write(f'Best set of parameters for XGB model : {XGB_GS.best_params_} gave score {XGB_GS.best_score_}\n\r')
     file.write(f'Best set of parameters for MLP model : {MLP_GS.best_params_} gave score {MLP_GS.best_score_}\n\r')
+'''
