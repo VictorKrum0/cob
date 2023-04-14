@@ -80,22 +80,22 @@ all_n_pca = [8,16,24,32,40,48,56,64,128]
 knn_scores = []
 xgb_scores = []
 mlp_scores = []
-'''
+
 with open('PCALog.txt', 'w') as file :
     file.write('Recording Different PCA scores with default parameter tuning \n\r')
     for n_pca in all_n_pca :
         file.write(f'\n Scores for PCA size {n_pca} :\n\r')
         my_pca = PCA(n_components=n_pca)
         knn_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('KNNClassifier', my_KNN)])
-        knn_score = my_kfold(X_train, y_train, model='knn', n_splits=20)
+        knn_score = my_kfold(X_train, y_train, model='knn', n_splits=50)
         knn_scores.append(knn_score)
         file.write(f'Score for KNN : {knn_score} \n\r')
         XGB_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('XGBClassifier', my_XGB)])
-        xgb_score = my_kfold(X_train, y_train, model='xgb', n_splits=20)
+        xgb_score = my_kfold(X_train, y_train, model='xgb', n_splits=50)
         xgb_scores.append(xgb_score)
         file.write(f'Score for XGB : {xgb_score} \n\r')
         MLP_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('MLPClassifier', my_MLP)])
-        mlp_score = my_kfold(X_train, y_train, model='mlp', n_splits=20)
+        mlp_score = my_kfold(X_train, y_train, model='mlp', n_splits=50)
         mlp_scores.append(mlp_score)
         file.write(f'Score for MLP : {mlp_score} \n\r')
     best_knn_pca = all_n_pca[np.argmax(np.array(knn_scores))]
@@ -104,10 +104,6 @@ with open('PCALog.txt', 'w') as file :
     file.write(f'\n\n\rBest PCA for KNN : {best_knn_pca}\n\r')
     file.write(f'Best PCA for KNN : {best_xgb_pca}\n\r')
     file.write(f'Best PCA for MLP : {best_MLP_pca}\n\r')
-'''
-best_knn_pca = 16
-best_xgb_pca = 16
-best_MLP_pca = 16
 
 knn_X_train = Pipeline([('NORM', my_Normalizer), ('PCA', PCA(n_components=best_knn_pca))]).fit_transform(X_train)
 xgb_X_train = Pipeline([('NORM', my_Normalizer), ('PCA', PCA(n_components=best_xgb_pca))]).fit_transform(X_train)
@@ -140,10 +136,10 @@ XGB_GS.fit(xgb_X_train, y_train)
 #PART 2.3 : MLP
 
 MLP_params = {
-        'hidden_layer_sizes': [(100,),(1000,),(100,100),(1000,1000),(20,20,20),(64,128,64),(320,640,320)],
-        'solver': ['sgd', 'adam'],
-        'alpha': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1],
-        'momentum' : [0,0.7,0.8,0.9,0.95],
+        'hidden_layer_sizes': [(320,640,320),(640,640,640),(640,1280,640)],
+        'solver': ['adam'],
+        'alpha': [0.01, 0.0075, 0.015],
+        'momentum' : [0,0.65,0.7,0.75],
         'learning_rate': ['constant','adaptive']
     }
 
@@ -157,4 +153,4 @@ with open('GridSearchLog.txt', 'w') as file :
     file.write(f'Results for grid searches on all selected models \n\r')
     #file.write(f'Best set of parameters for KNN model : {KNN_GS.best_params_} gave score {KNN_GS.best_score_}\n\r')
     #file.write(f'Best set of parameters for XGB model : {XGB_GS.best_params_} gave score {XGB_GS.best_score_}\n\r')
-    file.write(f'Best set of parameters for KNN model : {MLP_GS.best_params_} gave score {MLP_GS.best_score_}\n\r')
+    file.write(f'Best set of parameters for MLP model : {MLP_GS.best_params_} gave score {MLP_GS.best_score_}\n\r')
