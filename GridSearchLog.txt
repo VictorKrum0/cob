@@ -1,4 +1,3 @@
 Results for grid searches on all selected models 
-
-Best set of parameters for MLP model : {'alpha': 0.01, 'hidden_layer_sizes': (320, 640, 320), 'learning_rate': 'constant', 'momentum': 0.7, 'solver': 'adam'} gave score 0.658924408924409
-
+Best set of parameters for MLP model : {'alpha': 0.015, 'hidden_layer_sizes': (640, 1280, 640), 'learning_rate': 'adaptive', 'momentum': 0, 'solver': 'adam'} gave score 0.668065268065268
+

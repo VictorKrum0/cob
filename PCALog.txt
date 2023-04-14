@@ -1,52 +1,52 @@
 Recording Different PCA scores with default parameter tuning 
 
  Scores for PCA size 8 :
-Score for KNN : 0.5425775978407557 
-Score for XGB : 0.5671727395411604 
-Score for MLP : 0.626417004048583 
+Score for KNN : 0.55125 
+Score for XGB : 0.5760833333333337 
+Score for MLP : 0.5956666666666668 
 
  Scores for PCA size 16 :
-Score for KNN : 0.6070175438596493 
-Score for XGB : 0.616531713900135 
-Score for MLP : 0.6601214574898785 
+Score for KNN : 0.5955833333333337 
+Score for XGB : 0.6427500000000004 
+Score for MLP : 0.6615833333333336 
 
  Scores for PCA size 24 :
-Score for KNN : 0.5902834008097166 
-Score for XGB : 0.6097165991902834 
-Score for MLP : 0.6760121457489878 
+Score for KNN : 0.5961666666666668 
+Score for XGB : 0.624916666666667 
+Score for MLP : 0.6723333333333338 
 
  Scores for PCA size 32 :
-Score for KNN : 0.575 
-Score for XGB : 0.6170715249662618 
-Score for MLP : 0.6661943319838057 
+Score for KNN : 0.5783333333333337 
+Score for XGB : 0.6346666666666669 
+Score for MLP : 0.657416666666667 
 
  Scores for PCA size 40 :
-Score for KNN : 0.566464237516869 
-Score for XGB : 0.6236504723346828 
-Score for MLP : 0.6657557354925776 
+Score for KNN : 0.5630000000000002 
+Score for XGB : 0.6076666666666669 
+Score for MLP : 0.6462500000000004 
 
  Scores for PCA size 48 :
-Score for KNN : 0.5512820512820513 
-Score for XGB : 0.6098178137651824 
-Score for MLP : 0.6468960863697706 
+Score for KNN : 0.5523333333333337 
+Score for XGB : 0.6135000000000005 
+Score for MLP : 0.6451666666666668 
 
  Scores for PCA size 56 :
-Score for KNN : 0.548515519568151 
-Score for XGB : 0.6068825910931175 
-Score for MLP : 0.6574898785425102 
+Score for KNN : 0.5627500000000002 
+Score for XGB : 0.6305833333333338 
+Score for MLP : 0.6515833333333337 
 
  Scores for PCA size 64 :
-Score for KNN : 0.565485829959514 
-Score for XGB : 0.6031376518218623 
-Score for MLP : 0.648582995951417 
+Score for KNN : 0.5508333333333333 
+Score for XGB : 0.6180833333333335 
+Score for MLP : 0.6587500000000003 
 
  Scores for PCA size 128 :
-Score for KNN : 0.5567813765182187 
-Score for XGB : 0.5849190283400811 
-Score for MLP : 0.5916329284750337 
+Score for KNN : 0.5585000000000001 
+Score for XGB : 0.5871666666666667 
+Score for MLP : 0.6122500000000004 
 
 
+Best PCA for KNN : 24
 Best PCA for KNN : 16
-Best PCA for KNN : 40
 Best PCA for MLP : 24
 
