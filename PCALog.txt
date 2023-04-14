@@ -1,0 +1,67 @@
+Recording Different PCA scores with default parameter tuning 
+
+ Scores for PCA size 12 :
+Score for KNN : 0.6192632850241544 
+Score for XGB : 0.6390700483091789 
+Score for MLP : 0.6562198067632851 
+
+ Scores for PCA size 13 :
+Score for KNN : 0.6161231884057973 
+Score for XGB : 0.6421497584541064 
+Score for MLP : 0.6449275362318841 
+
+ Scores for PCA size 14 :
+Score for KNN : 0.6019323671497584 
+Score for XGB : 0.6432367149758454 
+Score for MLP : 0.6423309178743961 
+
+ Scores for PCA size 15 :
+Score for KNN : 0.6118357487922703 
+Score for XGB : 0.6391304347826087 
+Score for MLP : 0.652596618357488 
+
+ Scores for PCA size 16 :
+Score for KNN : 0.6078502415458937 
+Score for XGB : 0.6375603864734299 
+Score for MLP : 0.6656400966183575 
+
+ Scores for PCA size 17 :
+Score for KNN : 0.6073067632850242 
+Score for XGB : 0.6166666666666668 
+Score for MLP : 0.6518115942028984 
+
+ Scores for PCA size 18 :
+Score for KNN : 0.6090579710144929 
+Score for XGB : 0.6241545893719807 
+Score for MLP : 0.6591787439613526 
+
+ Scores for PCA size 19 :
+Score for KNN : 0.605193236714976 
+Score for XGB : 0.638707729468599 
+Score for MLP : 0.6575483091787441 
+
+ Scores for PCA size 20 :
+Score for KNN : 0.6062198067632849 
+Score for XGB : 0.6451086956521739 
+Score for MLP : 0.6615942028985506 
+
+ Scores for PCA size 21 :
+Score for KNN : 0.588768115942029 
+Score for XGB : 0.6590579710144927 
+Score for MLP : 0.6563405797101448 
+
+ Scores for PCA size 22 :
+Score for KNN : 0.6137681159420292 
+Score for XGB : 0.6129830917874397 
+Score for MLP : 0.6486714975845409 
+
+ Scores for PCA size 23 :
+Score for KNN : 0.6082729468599034 
+Score for XGB : 0.6309782608695652 
+Score for MLP : 0.6464975845410629 
+
+
+Best PCA for KNN : 12
+Best PCA for KNN : 21
+Best PCA for MLP : 16
+
