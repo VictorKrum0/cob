@@ -147,7 +147,7 @@ MLP_params = {
         'learning_rate': ['constant','adaptive']
     }
 
-MLP_GS = GridSearchCV(neural_network.MLPClassifier(max_iter=500, nesterovs_momentum=True ,
+MLP_GS = GridSearchCV(neural_network.MLPClassifier(max_iter=800, nesterovs_momentum=True ,
                                                    activation='relu', early_stopping=True,
                                                    n_iter_no_change=50),
                       MLP_params, n_jobs=-1, cv=10, scoring='accuracy')

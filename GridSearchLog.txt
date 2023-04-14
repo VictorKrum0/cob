@@ -1,4 +1,3 @@
 Results for grid searches on all selected models 
-Best set of parameters for KNN model : {'n_neighbors': 1, 'p': 3, 'weights': 'uniform'} gave score 0.62001332001332
-Best set of parameters for XGB model : {'max_depth': 16, 'min_child_weight': 0, 'n_estimators': 1500} gave score 0.62004662004662
+Best set of parameters for KNN model : {'alpha': 0.01, 'hidden_layer_sizes': (320, 640, 320), 'learning_rate': 'constant', 'momentum': 0.7, 'solver': 'adam'} gave score 0.658924408924409
 
