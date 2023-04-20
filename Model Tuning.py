@@ -118,7 +118,7 @@ with open('WeightScores.txt','w') as file :
         score = my_kfold_xgb(X_train, y_train, n_splits=30, class_weights=class_weights_i)
         file.write(f'Score for {class_weights_i} : {score} \n\r')
         weights_scores.append(score)
-    file.write(f'\nBest score was obtained for {class_weights[np.argmax(np.array(Mixed_scores))]}')
+    file.write(f'\nBest score was obtained for {class_weights[np.argmax(np.array(weights_scores))]}')
 
 '''
 #PART 2.1 : KNN
