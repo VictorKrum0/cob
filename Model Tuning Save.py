@@ -32,29 +32,26 @@ n_neighbors = 3
 class_weights = [1,1,1,1,1]
 #class_weights = [2.24,12.68,4.34,4.34,4.34] #weights adjusted manually
 
+run_MLP = True
+
+weights_list = [class_weights[int(i)] for i in y_train]
+
 my_Normalizer = Normalizer() #Normalizer(norm='l2')
 
-def my_kfold(X, y, display=False, n_splits=5) :
+def my_kfold(X, y, model='xgb', display=False, n_splits=5) :
     my_kf = StratifiedKFold(n_splits=n_splits, shuffle=True)
     kf_scores = []
     for i, (train_index, test_index) in enumerate(my_kf.split(X, y)):
         weights_list = [class_weights[int(i)] for i in y.iloc[train_index]]
-        XGB_model.fit(X.iloc[train_index], y.iloc[train_index], **{'XGBClassifier__sample_weight': weights_list})
-        KNN_model.fit(X.iloc[train_index], y.iloc[train_index])
-        MLP_model.fit(X.iloc[train_index], y.iloc[train_index])
-        y_mixed_proba = KNN_model.predict_proba(X.iloc[test_index])/3 + XGB_model.predict_proba(X.iloc[test_index])/3 + MLP_model.predict_proba(X.iloc[test_index])/3
-        y_mixed = [np.argmax(np.array(probas)) for probas in y_mixed_proba] 
-        kf_scores.append(get_accuracy(y_mixed, y.iloc[test_index]))
-    if display : print(f'K-fold accuracy : {sum(kf_scores)/len(kf_scores)}')
-    return sum(kf_scores)/len(kf_scores)
-
-def my_kfold_xgb(X, y, display=False, n_splits=5, class_weights=[1,1,1,1,1]) :
-    my_kf = StratifiedKFold(n_splits=n_splits, shuffle=True)
-    kf_scores = []
-    for i, (train_index, test_index) in enumerate(my_kf.split(X, y)):
-        weights_list = [class_weights[int(i)] for i in y.iloc[train_index]]
-        XGB_model.fit(X.iloc[train_index], y.iloc[train_index], **{'XGBClassifier__sample_weight': weights_list})
-        y_pred = XGB_model.predict(X.iloc[test_index])
+        if model == 'xgb' :
+            XGB_model.fit(X.iloc[train_index], y.iloc[train_index], **{'XGBClassifier__sample_weight': weights_list})
+            y_pred = XGB_model.predict(X.iloc[test_index])
+        elif model == 'knn' :
+            knn_model.fit(X.iloc[train_index], y.iloc[train_index])
+            y_pred = knn_model.predict(X.iloc[test_index])
+        elif model == 'mlp' :
+            MLP_model.fit(X.iloc[train_index], y.iloc[train_index])
+            y_pred = MLP_model.predict(X.iloc[test_index])
         kf_scores.append(get_accuracy(y_pred, y.iloc[test_index]))
     if display : print(f'K-fold accuracy : {sum(kf_scores)/len(kf_scores)}')
     return sum(kf_scores)/len(kf_scores)
@@ -73,7 +70,7 @@ my_XGB = xgb.sklearn.XGBClassifier(max_depth=16, n_estimators=1600, min_child_we
 #TRAINING A MLP CLASSIFIER
 #-----------------------------------------------------------------------------------------------------------
 
-my_MLP = neural_network.MLPClassifier(max_iter=800, 
+my_MLP = neural_network.MLPClassifier(max_iter=500, 
                                       hidden_layer_sizes=(640,1280,640),
                                       learning_rate='adaptive',
                                       nesterovs_momentum=False,
@@ -81,45 +78,43 @@ my_MLP = neural_network.MLPClassifier(max_iter=800,
 
 #PART 1 : PCA DIMENSION OPTIMIZATION
 #---------------------------------------------------------------------------------------------------------------------
-all_n_pca = range(12,13)
 
-Mixed_scores = []
+all_n_pca = range(12,24)
+
+knn_scores = []
+xgb_scores = []
+mlp_scores = []
 
 with open('PCALog.txt', 'w') as file :
     file.write('Recording Different PCA scores with default parameter tuning \n\r')
     for n_pca in all_n_pca :
-        file.write(f'\n Score for PCA size {n_pca} :\n\r')
+        file.write(f'\n Scores for PCA size {n_pca} :\n\r')
         my_pca = PCA(n_components=n_pca)
-        KNN_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('KNNClassifier', my_KNN)])
+        knn_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('KNNClassifier', my_KNN)])
+        knn_score = my_kfold(X_train, y_train, model='knn', n_splits=30)
+        knn_scores.append(knn_score)
+        file.write(f'Score for KNN : {knn_score} \n\r')
         XGB_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('XGBClassifier', my_XGB)])
+        xgb_score = my_kfold(X_train, y_train, model='xgb', n_splits=30)
+        xgb_scores.append(xgb_score)
+        file.write(f'Score for XGB : {xgb_score} \n\r')
         MLP_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('MLPClassifier', my_MLP)])
-        mixed_score = my_kfold(X_train, y_train, n_splits=20)
-        Mixed_scores.append(mixed_score)
-        file.write(f'Score for Mixed : {mixed_score} \n\r')
-    best_pca = all_n_pca[np.argmax(np.array(Mixed_scores))]
-    file.write(f'\n\n\rBest PCA for Mixed : {best_pca}\n\r')
+        mlp_score = my_kfold(X_train, y_train, model='mlp', n_splits=30)
+        mlp_scores.append(mlp_score)
+        file.write(f'Score for MLP : {mlp_score} \n\r')
+    best_knn_pca = all_n_pca[np.argmax(np.array(knn_scores))]
+    best_xgb_pca = all_n_pca[np.argmax(np.array(xgb_scores))]
+    best_MLP_pca = all_n_pca[np.argmax(np.array(mlp_scores))]  
+    file.write(f'\n\n\rBest PCA for KNN : {best_knn_pca}\n\r')
+    file.write(f'Best PCA for KNN : {best_xgb_pca}\n\r')
+    file.write(f'Best PCA for MLP : {best_MLP_pca}\n\r')
 
-my_pca = PCA(n_components=best_pca)
-print(best_pca)
-
-KNN_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('KNNClassifier', my_KNN)])
-XGB_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('XGBClassifier', my_XGB)])
-MLP_model = Pipeline([('NORM', my_Normalizer), ('PCA', my_pca), ('MLPClassifier', my_MLP)])
+knn_X_train = Pipeline([('NORM', my_Normalizer), ('PCA', PCA(n_components=best_knn_pca))]).fit_transform(X_train)
+xgb_X_train = Pipeline([('NORM', my_Normalizer), ('PCA', PCA(n_components=best_xgb_pca))]).fit_transform(X_train)
+mlp_X_train = Pipeline([('NORM', my_Normalizer), ('PCA', PCA(n_components=best_MLP_pca))]).fit_transform(X_train)
 
 #PART 2 : HYPERPARAMETER OPTIMIZATION
 #---------------------------------------------------------------------------------------------------------------------
-
-class_weights = [[1,1,1,1,1],[2.24,12.68,4.34,4.34,4.34],[1,3,1.5,1,1],[1,10,5,5,5],[2,10,5,5,5],[1,10,5,4,3]]
-
-weights_scores = []
-
-with open('WeightScores.txt','w') as file :
-    for class_weights_i in class_weights :
-        score = my_kfold_xgb(X_train, y_train, n_splits=30, class_weights=class_weights_i)
-        file.write(f'Score for {class_weights_i} : {score} \n\r')
-        weights_scores.append(score)
-    file.write(f'\nBest score was obtained for {class_weights[np.argmax(np.array(Mixed_scores))]}')
-
 '''
 #PART 2.1 : KNN
 
@@ -128,7 +123,7 @@ KNN_params = {'n_neighbors' : list(range(1,20)),
               'p' : [1,2,3,4]}
 
 KNN_GS = GridSearchCV(KNeighborsClassifier(), KNN_params, n_jobs=-1, cv=10, scoring='accuracy')
-KNN_GS.fit(KNN_X_train, y_train)
+KNN_GS.fit(knn_X_train, y_train)
 
 #PART 2.2 : XGB
 

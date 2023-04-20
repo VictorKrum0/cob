@@ -1,0 +1,5 @@
+Recording Different PCA scores with default parameter tuning 
+
+ Score for PCA size 12 :
+Score for Mixed : 0.6633637284701115 
+
