@@ -24,7 +24,7 @@ dataset_name = 'PandasDataframes/BigData_PCA.csv'
 
 data = pd.read_csv(dataset_name).drop(['Unnamed: 0'], axis='columns').drop(index=779)
 
-X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='LABEL')**(1/2), data.LABEL, test_size=0.1)
+X_train, X_test, y_train, y_test = train_test_split(data.drop(columns='LABEL'), data.LABEL, test_size=0.1)
 
 n_neighbors = 3
 
