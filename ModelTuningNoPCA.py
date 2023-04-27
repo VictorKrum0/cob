@@ -40,9 +40,9 @@ def my_kfold(X, y, display=False, n_splits=5, w = np.array([0.33,0.33,0.33])) :
     single_model_scores = [[],[],[]]
     kf_scores = []
     for i, (train_index, test_index) in enumerate(my_kf.split(X, y)):
-        XGB_model.fit(X.iloc[train_index], y.iloc[train_index])
-        single_model_scores[0].append(get_accuracy(KNN_model.predict(X.iloc[test_index],y.iloc[test_index])))
         KNN_model.fit(X.iloc[train_index], y.iloc[train_index])
+        single_model_scores[0].append(get_accuracy(KNN_model.predict(X.iloc[test_index]),y.iloc[test_index]))
+        XGB_model.fit(X.iloc[train_index], y.iloc[train_index])
         single_model_scores[1].append(get_accuracy(XGB_model.predict(X.iloc[test_index]),y.iloc[test_index]))
         MLP_model.fit(X.iloc[train_index], y.iloc[train_index])
         single_model_scores[2].append(get_accuracy(MLP_model.predict(X.iloc[test_index]),y.iloc[test_index]))
