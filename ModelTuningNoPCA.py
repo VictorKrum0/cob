@@ -89,11 +89,7 @@ MLP_model = Pipeline([('NORM', my_Normalizer), ('MLPClassifier', my_MLP)])
 
 #add a way to compute a single model and then test it with all weight combinations
 #put in a lot of folds (50)
-weights_list = np.ones((13,3))
-for i in range(2) :
-    np.random.seed(1107)
-    for j in range(6) :
-        weights_list[6*i+j+1] = np.random.random(3)+1-i
+weights_list = [[0.38147614, 0.83796509, 0.93034073],[0.3, 0.9, 0.9],[0,1,1],[1.38147614, 1.83796509, 1.93034073],[0.2,1,1],[0.1,1,1]]
 
 with open('ModelComparisonReport.txt', 'w') as file :
     file.write('Report for running the mixed model with different weighting coefficients \n')
