@@ -1,5 +1,41 @@
 Recording Different PCA scores with default parameter tuning 
-
+
  Score for PCA size 12 :
-Score for Mixed : 0.6633637284701115 
+Score for Mixed : 0.6791666666666665 
+
+ Score for PCA size 13 :
+Score for Mixed : 0.6704761904761903 
+
+ Score for PCA size 14 :
+Score for Mixed : 0.6733333333333333 
+
+ Score for PCA size 15 :
+Score for Mixed : 0.6677777777777776 
+
+ Score for PCA size 16 :
+Score for Mixed : 0.6705952380952379 
+
+ Score for PCA size 17 :
+Score for Mixed : 0.6647222222222221 
+
+ Score for PCA size 18 :
+Score for Mixed : 0.6804365079365078 
+
+ Score for PCA size 19 :
+Score for Mixed : 0.6763095238095236 
+
+ Score for PCA size 20 :
+Score for Mixed : 0.6734126984126985 
+
+ Score for PCA size 21 :
+Score for Mixed : 0.6602777777777776 
+
+ Score for PCA size 22 :
+Score for Mixed : 0.6775396825396826 
+
+ Score for PCA size 23 :
+Score for Mixed : 0.6818253968253968 
+
+
+Best PCA for Mixed : 23
 
