@@ -15,7 +15,7 @@ from utils_copy import *
 test_number = 0
 
 #just adapt the dataset name : since it is generated with Dataframe.to_csv(), we need to remove the column ['Unnamed: 0']
-dataset_name = 'PandasDataframes/BigData_PCA_normalized.csv'
+dataset_name = 'PandasDataframes/BigData_PCA_Normalized.csv'
 
 ESC50_data = pd.read_csv(dataset_name).drop(['Unnamed: 0'], axis='columns')
 n = ESC50_data.shape[0]

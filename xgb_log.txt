@@ -1,23 +1,18 @@
-Running test 0 with 2 splits, (50, 16) dataset : 
-0.30000000000000004
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.32999999999999996
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.34
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.36
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.35
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.33
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.38
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.30000000000000004
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.36
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.43000000000000005
-Running test 0 with 2 splits, (100, 16) dataset : 
-0.35
-Running test 0 with 2 splits, (100, 16) dataset : 
+Running test 0 with 5 splits, (50, 16) dataset : 
+0.52
+Running test 0 with 5 splits, (100, 16) dataset : 
+0.36999999999999994
+Running test 0 with 5 splits, (200, 16) dataset : 
+0.485
+Running test 0 with 5 splits, (300, 16) dataset : 
+0.37666666666666665
+Running test 0 with 5 splits, (500, 16) dataset : 
+0.48
+Running test 0 with 5 splits, (700, 16) dataset : 
+0.49857142857142855
+Running test 0 with 5 splits, (1000, 16) dataset : 
+0.5209999999999999
+Running test 0 with 5 splits, (1300, 16) dataset : 
+0.5676923076923076
+Running test 0 with 5 splits, (1800, 16) dataset : 
+0.6077777777777778
