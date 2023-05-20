@@ -53,7 +53,7 @@ MLP_model = Pipeline([('Normalizer', my_Normalizer), ('MLPClassifier', my_MLP)])
 all_files = [open('knn_log.txt', 'w'), open('xgb_log.txt', 'w'), open('mlp_log.txt', 'w'), open('mixed_log.txt', 'w')]
 
 def my_kfold(X, y, display=False, plus=True, a=None) :
-    m = 2
+    m = 5
     for file in all_files :
         file.write(f'Running test {test_number} with {m} splits, {X.shape} dataset : \n')
         
