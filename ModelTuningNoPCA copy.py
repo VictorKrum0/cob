@@ -21,8 +21,8 @@ from utils_copy import *
 weights = np.ones((13,3))
 for i in range(2) :
     np.random.seed(1107)
-    for j in range(6) :
-        weights[6*i+j+1] = np.random.random(3)+1-i
+    for j in range(4) :
+        weights[4*i+j+1] = np.random.random(3)+1-i
 
 print(weights)
 

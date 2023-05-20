@@ -1,0 +1,23 @@
+Running test 0 with 2 splits, (50, 16) dataset : 
+0.30000000000000004
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.32999999999999996
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.34
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.36
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.35
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.33
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.38
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.30000000000000004
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.36
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.43000000000000005
+Running test 0 with 2 splits, (100, 16) dataset : 
+0.35
+Running test 0 with 2 splits, (100, 16) dataset : 
